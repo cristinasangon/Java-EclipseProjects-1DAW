@@ -1,0 +1,6 @@
+12345678Z,Manolo,25,Covid-19,2024-03-03,null,true
+98765432M,Raul,33,Covid-19,2024-03-01,null,false
+56789012B,Maria,21,Gripe,2024-03-05,null,false
+23145678L,Natalia,35,Gripe,2024-02-29,null,true
+67891234H,Yohan,26,Covid-19,2024-03-06,null,false
+90123456A,Leire,75,Covid-19,2024-03-04,null,false

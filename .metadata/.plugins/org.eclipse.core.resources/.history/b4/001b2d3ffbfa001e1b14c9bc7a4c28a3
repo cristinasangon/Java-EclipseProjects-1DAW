@@ -1,0 +1,273 @@
+package vista;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
+import java.awt.Color;
+import javax.swing.border.TitledBorder;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.MatteBorder;
+import javax.swing.JLabel;
+import javax.swing.ButtonGroup;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import java.awt.Font;
+import java.util.ArrayList;
+
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import javax.swing.JRadioButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+
+public class FrmFormulario extends JFrame {
+
+	private ImageIcon sakura;
+	private JLabel lblSakura;
+	
+	private JPanel panel;
+	private JPanel panelDatosPersonales;
+	
+	private JLabel lblNombre;
+	private JTextField textNombre;
+	private JLabel lblApellidos;
+	private JLabel lblDireccin;
+	private JLabel lblTelfono;
+	private JLabel lblPoblacion;
+	private JTextField textApellidos;
+	private JTextField textDireccion;
+	private JTextField textTeléfono;
+	
+	private JButton btnAceptar;
+	
+	private ButtonGroup grupoEstadoCivil;
+	private ArrayList<JRadioButton> listaEstadoCivil;
+	private JPanel PanelEstadoCivil;
+	private JRadioButton rdbtnSoltero;
+	private JRadioButton rdbtnCasado;
+	private JRadioButton rdbtnSeparado;
+	private JPanel panelLenguajesProgramacion;
+	
+	private ArrayList<JCheckBox> listaLenguajesProgramacion;
+	private JCheckBox chckJava;
+	private JCheckBox chckDelphi;
+	private JCheckBox chckAndroid;
+	
+	//DATOS
+	private String nombre, apellidos, direccion, telefono, poblacion, estadoCivil, lenguajes, frase;
+
+	public FrmFormulario() {
+		setResizable(false);
+		sakura = new ImageIcon("img/sakura.png");
+		
+		setTitle("CURRICULUM");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 950, 460);
+		panel = new JPanel();
+		panel.setBackground(new Color(200, 227, 255));
+		panel.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		setContentPane(panel);
+		panel.setLayout(null);
+		
+		definirVentana();
+		definirEventos();
+		
+		setVisible(true);
+	}
+
+	private void definirEventos() {
+		btnAceptar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				nombre = textNombre.getText();
+				apellidos = textApellidos.getText();
+				direccion = textDireccion.getText();
+				telefono = textTeléfono.getText();
+				for(JRadioButton boton: listaEstadoCivil) {
+					if(boton.isSelected()) {
+						estadoCivil = boton.getText();
+					}
+				}
+				
+				lenguajes = "";
+				for(JCheckBox box: listaLenguajesProgramacion) {
+					if(box.isSelected()) {
+						 lenguajes += box.getText() + ", ";
+					}
+				}
+				try {
+					lenguajes = lenguajes.substring(0, lenguajes.length() - 2);
+				} catch (Exception e2) {
+					// TODO: handle exception
+				}
+				
+				frase = "Nombre: " + nombre + "\nApellidos: " + apellidos + "\nDireccion: " + direccion + "\nTelefono: " + telefono + "\nPoblacion: " + poblacion + "\nEstado Civil: " + estadoCivil + "\nLenguajes de programacion: " + lenguajes;
+				setVisible(false);
+				Curriculum curriculum = new Curriculum(frase);
+			}
+		});
+	}
+
+	private void definirVentana() {
+		panelDatosPersonales = new JPanel();
+		panelDatosPersonales.setBackground(new Color(157, 206, 255));
+		panelDatosPersonales.setBorder(new TitledBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(0, 107, 215)), "Datos Personales", TitledBorder.LEFT, TitledBorder.TOP, null, new Color(0, 107, 215)));
+		panelDatosPersonales.setBounds(30, 30, 325, 175);
+		panel.add(panelDatosPersonales);
+		panelDatosPersonales.setLayout(null);
+		
+		lblNombre = new JLabel("Nombre:");
+		lblNombre.setForeground(new Color(0, 107, 215));
+		lblNombre.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblNombre.setBounds(20, 21, 80, 20);
+		panelDatosPersonales.add(lblNombre);
+		
+		textNombre = new JTextField();
+		textNombre.setForeground(new Color(0, 107, 215));
+		textNombre.setFont(new Font("Tahoma", Font.BOLD, 12));
+		textNombre.setBackground(new Color(200, 227, 255));
+		textNombre.setBounds(88, 23, 135, 20);
+		panelDatosPersonales.add(textNombre);
+		textNombre.setColumns(10);
+		
+		lblApellidos = new JLabel("Apellidos:");
+		lblApellidos.setForeground(new Color(0, 107, 215));
+		lblApellidos.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblApellidos.setBounds(20, 51, 80, 20);
+		panelDatosPersonales.add(lblApellidos);
+		
+		textApellidos = new JTextField();
+		textApellidos.setForeground(new Color(0, 107, 215));
+		textApellidos.setFont(new Font("Tahoma", Font.BOLD, 12));
+		textApellidos.setColumns(10);
+		textApellidos.setBackground(new Color(200, 227, 255));
+		textApellidos.setBounds(88, 53, 215, 20);
+		panelDatosPersonales.add(textApellidos);
+		
+		lblDireccin = new JLabel("Dirección:");
+		lblDireccin.setForeground(new Color(0, 107, 215));
+		lblDireccin.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblDireccin.setBounds(20, 81, 80, 20);
+		panelDatosPersonales.add(lblDireccin);
+		
+		textDireccion = new JTextField();
+		textDireccion.setForeground(new Color(0, 107, 215));
+		textDireccion.setFont(new Font("Tahoma", Font.BOLD, 12));
+		textDireccion.setColumns(10);
+		textDireccion.setBackground(new Color(200, 227, 255));
+		textDireccion.setBounds(88, 83, 215, 20);
+		panelDatosPersonales.add(textDireccion);
+		
+		lblTelfono = new JLabel("Teléfono:");
+		lblTelfono.setForeground(new Color(0, 107, 215));
+		lblTelfono.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblTelfono.setBounds(20, 111, 80, 20);
+		panelDatosPersonales.add(lblTelfono);
+		
+		textTeléfono = new JTextField();
+		textTeléfono.setForeground(new Color(0, 107, 215));
+		textTeléfono.setFont(new Font("Tahoma", Font.BOLD, 12));
+		textTeléfono.setColumns(10);
+		textTeléfono.setBackground(new Color(200, 227, 255));
+		textTeléfono.setBounds(88, 113, 90, 20);
+		panelDatosPersonales.add(textTeléfono);
+		
+		lblPoblacion = new JLabel("Población:");
+		lblPoblacion.setForeground(new Color(0, 107, 215));
+		lblPoblacion.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblPoblacion.setBounds(20, 141, 80, 20);
+		panelDatosPersonales.add(lblPoblacion);
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setBounds(88, 141, 90, 21);
+		panelDatosPersonales.add(comboBox);
+		
+		lblSakura = new JLabel("");
+		lblSakura.setBounds(636, 0, 300, 300);
+		lblSakura.setIcon(sakura);
+		panel.add(lblSakura);
+		
+		btnAceptar = new JButton("Aceptar");
+		btnAceptar.setForeground(new Color(168, 57, 77));
+		btnAceptar.setBackground(new Color(240, 204, 232));
+		btnAceptar.setFont(new Font("Tahoma", Font.BOLD, 15));
+		btnAceptar.setBounds(30, 362, 110, 30);
+		btnAceptar.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(221, 123, 158)));
+		panel.add(btnAceptar);
+		
+		PanelEstadoCivil = new JPanel();
+		PanelEstadoCivil.setLayout(null);
+		PanelEstadoCivil.setBorder(new TitledBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(0, 107, 215)), "Estado Civil", TitledBorder.LEFT, TitledBorder.TOP, null, new Color(0, 107, 215)));
+		PanelEstadoCivil.setBackground(new Color(157, 206, 255));
+		PanelEstadoCivil.setBounds(30, 215, 135, 120);
+		panel.add(PanelEstadoCivil);
+		
+		grupoEstadoCivil = new ButtonGroup();
+		listaEstadoCivil = new ArrayList<JRadioButton>();
+		
+		rdbtnSoltero = new JRadioButton("Soltero");
+		rdbtnSoltero.setForeground(new Color(0, 107, 215));
+		rdbtnSoltero.setBackground(new Color(157, 206, 255));
+		rdbtnSoltero.setFont(new Font("Tahoma", Font.BOLD, 12));
+		rdbtnSoltero.setBounds(17, 25, 102, 21);
+		grupoEstadoCivil.add(rdbtnSoltero);
+		listaEstadoCivil.add(rdbtnSoltero);
+		PanelEstadoCivil.add(rdbtnSoltero);
+		
+		rdbtnCasado = new JRadioButton("Casado");
+		rdbtnCasado.setForeground(new Color(0, 107, 215));
+		rdbtnCasado.setFont(new Font("Tahoma", Font.BOLD, 12));
+		rdbtnCasado.setBackground(new Color(157, 206, 255));
+		rdbtnCasado.setBounds(17, 55, 102, 21);
+		grupoEstadoCivil.add(rdbtnCasado);
+		listaEstadoCivil.add(rdbtnCasado);
+		PanelEstadoCivil.add(rdbtnCasado);
+		
+		rdbtnSeparado = new JRadioButton("Separado");
+		rdbtnSeparado.setForeground(new Color(0, 107, 215));
+		rdbtnSeparado.setFont(new Font("Tahoma", Font.BOLD, 12));
+		rdbtnSeparado.setBackground(new Color(157, 206, 255));
+		rdbtnSeparado.setBounds(17, 85, 102, 21);
+		grupoEstadoCivil.add(rdbtnSeparado);
+		listaEstadoCivil.add(rdbtnSeparado);
+		PanelEstadoCivil.add(rdbtnSeparado);
+		
+		panelLenguajesProgramacion = new JPanel();
+		panelLenguajesProgramacion.setLayout(null);
+		panelLenguajesProgramacion.setBorder(new TitledBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(0, 107, 215)), "Lenguajes de Programci\u00F3n", TitledBorder.LEFT, TitledBorder.TOP, null, new Color(0, 107, 215)));
+		panelLenguajesProgramacion.setBackground(new Color(157, 206, 255));
+		panelLenguajesProgramacion.setBounds(175, 215, 180, 120);
+		panel.add(panelLenguajesProgramacion);
+		
+		listaLenguajesProgramacion = new ArrayList<JCheckBox>();
+		
+		chckJava = new JCheckBox("Java");
+		chckJava.setBackground(new Color(157, 206, 255));
+		chckJava.setForeground(new Color(0, 107, 215));
+		chckJava.setFont(new Font("Tahoma", Font.BOLD, 12));
+		chckJava.setBounds(17, 25, 143, 21);
+		listaLenguajesProgramacion.add(chckJava);
+		panelLenguajesProgramacion.add(chckJava);
+		
+		chckDelphi = new JCheckBox("Delphi");
+		chckDelphi.setForeground(new Color(0, 107, 215));
+		chckDelphi.setFont(new Font("Tahoma", Font.BOLD, 12));
+		chckDelphi.setBackground(new Color(157, 206, 255));
+		chckDelphi.setBounds(17, 55, 143, 21);
+		listaLenguajesProgramacion.add(chckDelphi);
+		panelLenguajesProgramacion.add(chckDelphi);
+		
+		chckAndroid = new JCheckBox("Android");
+		chckAndroid.setForeground(new Color(0, 107, 215));
+		chckAndroid.setFont(new Font("Tahoma", Font.BOLD, 12));
+		chckAndroid.setBackground(new Color(157, 206, 255));
+		chckAndroid.setBounds(17, 85, 143, 21);
+		listaLenguajesProgramacion.add(chckAndroid);
+		panelLenguajesProgramacion.add(chckAndroid);
+	}
+}

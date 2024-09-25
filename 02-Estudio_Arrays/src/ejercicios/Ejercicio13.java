@@ -1,0 +1,149 @@
+package ejercicios;
+
+import java.util.Scanner;
+
+public class Ejercicio13 {
+
+	public Ejercicio13() {
+		// TODO Auto-generated constructor stub
+		System.out.println("- - - - - - - - - EJERCICIO 13 - - - - - - - - -");
+		// Programa que tenga las siguientes opciones a elegir:
+		//    1 - Mostrar las notas de todos los alumnos en cada asignatura
+		//    2 - Mostrar todas las notas de un alumno y decir si promociona o no
+		//    3 - Introducir todas las notas de una asignatura
+		//    4 - Introducir las notas de un alumno en cada asignatura
+		//    5 - Mostrar todos los alumnos que promocionan
+		//    6 - Salir
+
+		Scanner leer = new Scanner(System.in);
+		String[] alumnos = {"Cristina", "Victor", "Sandra", "Sofia", "Felipe", "Manolo"};
+		String[] asignaturas = {"Leng", "Ingl", "Mate", "Biol", "Geog"};
+		
+		int[][] notas = {{10,9,3,6,2,7},
+						 {9,10,5,2,9,4},
+						 {6,5,2,8,3,9},
+						 {9,6,1,5,7,8},
+						 {8,7,6,2,8,6}};
+		
+		System.out.println("====================================================================");
+		System.out.println("Elige una opcion(1-6)");
+		System.out.println("====================================================================");
+		System.out.println("1 - Mostrar las notas de todos los alumnos en cada asignatura");
+		System.out.println("2 - Mostrar todas las notas de un alumno y decir si promociona o no");
+		System.out.println("3 - Introducir todas las notas de una asignatura");
+		System.out.println("4 - Introducir las notas de un alumno en cada asignatura");
+		System.out.println("5 - Mostrar todos los alumnos que promocionan");
+		System.out.println("6 - Salir");
+		System.out.println("====================================================================");
+		
+		int op = 5 /*leer.nextInt()*/;
+		
+		System.out.println();
+		switch(op)
+			{
+			case 1:
+				mostrarNotasClase(alumnos, asignaturas, notas);
+				break;
+			case 2:
+				System.out.println("LISTA DE ALUMNOS");
+				System.out.println("-------------------------------");
+				for(int x = 0; x < alumnos.length; x++) {
+					System.out.printf("%d - %5s %n", x, alumnos[x]);
+				}
+				System.out.print("Introduce el numero de lista del alumno: ");
+				int numLista = leer.nextInt();
+				mostrarNotasAlumno(alumnos, asignaturas, notas, numLista);
+				if(promociona(alumnos, asignaturas, notas, numLista) == true) {
+					System.out.println("El alumno promociona");
+				}
+				else {
+					System.out.println("El alumno no promociona");
+				}
+				break;
+			case 3:
+				System.out.println("LISTA DE ASIGNATURAS");
+				System.out.println("-------------------------------");
+				for(int x = 0; x < asignaturas.length; x++) {
+					System.out.println(x + " - " + asignaturas[x]);
+				}
+				System.out.print("Introduce el numero de la asignatura: ");
+				int id = leer.nextInt();
+				System.out.println();
+				System.out.println(asignaturas[id]);
+				System.out.println("-------------------------------");
+				for(int x = 0; x < notas[id].length; x++) {
+					System.out.print("Nota de " + alumnos[x] + ": ");
+					notas[id][x] = leer.nextInt();
+				}
+				System.out.println("Las notas de " + asignaturas[id] + " se han actualizado correctamente");
+				break;
+			case 4:
+				System.out.println("LISTA DE ALUMNOS");
+				System.out.println("-------------------------------");
+				for(int x = 0; x < alumnos.length; x++) {
+					System.out.printf("%d - %5s %n", x, alumnos[x]);
+				}
+				System.out.print("Introduce el numero de lista del alumno: ");
+				numLista = leer.nextInt();
+				System.out.println();
+				System.out.println(alumnos[numLista]);
+				System.out.println("-------------------------------");
+				for(int x = 0; x < notas.length; x++) {
+					System.out.print(asignaturas[x] + ": ");
+					notas[x][numLista] = leer.nextInt();
+				}
+				System.out.println("Las notas de " + alumnos[numLista] + " se han actualizado correctamente");
+				break;
+			case 5:
+				System.out.println("LISTA DE PROMOCIONADOS");
+				System.out.println("-------------------------------");
+				for(int x = 0; x < alumnos.length; x++) {
+					if(promociona(alumnos, asignaturas, notas, x) == true) {
+						System.out.print(alumnos[x]);	
+					}
+				}
+				break;
+			}
+	}
+	public static void mostrarNotasClase (String[] alumnos, String[] asignaturas, int[][] notas) {
+		System.out.print("         | ");
+		for(int x = 0; x < asignaturas.length; x++) {
+			System.out.printf("%4s | ", asignaturas[x]);
+		}
+		System.out.println();
+		System.out.println("          ------ ------ ------ ------ ------ ");
+		for(int x = 0; x < alumnos.length; x++) {
+			System.out.printf("%-8s |", alumnos[x]);
+			for(int y = 0; y < asignaturas.length; y++) {
+				System.out.printf(" %3d  |", notas[y][x]);
+			}
+			System.out.println();
+		}
+	}
+	
+	public static void mostrarNotasAlumno (String[] alumnos, String[] asignaturas, int[][] notas, int alumno) {
+		System.out.println();
+		System.out.println(" " + alumnos[alumno]);
+		System.out.println("---------------------");
+		for(int x = 0; x < asignaturas.length; x++) {
+				System.out.printf(" %-4s | %2d |%n", asignaturas[x], notas[x][alumno]);
+			}
+			System.out.println();
+	}
+	
+	public static boolean promociona(String[] alumnos, String[] asignaturas, int[][] notas, int alumno) {
+		int susp = 0;
+		boolean promociona = true;
+		for(int x = 0; x < asignaturas.length; x++) {
+				if(notas[x][alumno] < 5) {
+					susp++;
+				}
+			}
+			System.out.println();
+		if(susp > 2 || (notas[0][alumno] < 5 && notas[2][alumno] < 5)) {
+			promociona = false;
+		}
+		return promociona;
+	}
+
+}

@@ -1,0 +1,9 @@
+8412345678905,Tortilla,Comida,1.25,2024-03-09,3,false
+0123456789128,Tarta de galletas,Comida,4.99,2024-03-06,1,true
+8421345678907,Coca Cola,Bebida,1.67,2025-03-02,6,false
+8421435678909,Fanta,Bebida,1.27,2025-06-02,7,false
+5728143960252,Salmón,Comida,9.99,2024-03-26,4,false
+3065982740150,Pechuga de pollo,Comida,3.5,2024-03-02,4,true
+1846509721300,Seven up,Bebida,1.15,2025-02-28,5,false
+7401952836595,Ferrero Rocher,Comida,5.5,2024-12-24,4,false
+3258649701247,Zumo de melocotón,Bebida,2.25,2024-01-24,8,true

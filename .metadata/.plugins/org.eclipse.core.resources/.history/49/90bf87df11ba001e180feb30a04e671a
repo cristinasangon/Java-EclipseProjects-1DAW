@@ -1,0 +1,108 @@
+package ejercicos_ficheros;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.Random;
+
+public class TarjetaClaves {
+
+	public TarjetaClaves() throws IOException {
+		File fichero = new File("Ficheros//tarjetaClaves.txt");
+		if(!fichero.exists()) {
+			fichero.createNewFile();
+		}
+		
+		//Pido usuario y contraseña
+		System.out.print("Nombre de usuario: ");
+		String user = "maria";//Leer.cadena();
+		
+		System.out.print("Contraseña: ");
+		String pass = "4321";//Leer.cadena();
+		
+		//FileReadoer y BufferedReader para poder leer el fichero
+		String dato = "";
+		FileReader fr = new FileReader(fichero);
+		BufferedReader br = new BufferedReader(fr);
+		
+		//La primera linea del fichero me dice la cantidad de usuarios que hay y esas son las vueltas que debo  dar para comprobar los usuarios
+		int vueltas = Integer.parseInt(br.readLine());
+		int x = 0;
+		
+		String[] linea;
+		String usuario = "", contraseña = "";
+		
+		//Creo un booleano en false que se pone true cuando encuentre un usuario para mostrar despues un mensaje de error
+		boolean usuarioCorrecto = false;
+		
+		//Compruebo el usuario y la contraseña con un bucle
+		while(x < vueltas) {
+			dato = br.readLine();
+			
+			linea = dato.split(",");
+			usuario = linea[0];
+			contraseña = linea[1];
+			if((usuario.equals(user)) && (contraseña.equals(pass))) {
+				usuarioCorrecto = true;
+				System.out.println("Hola, " + usuario + " has iniciado sesion correctamente");
+				System.out.println();
+				
+				//Convierto la tarjeta en un array
+				dato = br.readLine();
+				String[] tarjeta = dato.split(",");
+				
+				//Convierto la tarjeta en un array bidimensional con un metodo
+				String[][] Tarjeta = convierteTarjeta(tarjeta);
+				
+				//Muestro la tarjeta con un método
+				mostrarTarjeta(Tarjeta);
+				
+				//Genero una coordenada random para que la introduzca el usuario
+				int randLetra = (int) Math.floor(Math.random()*(4 - 0 + 1) + 0);
+				String[] letras = {"A", "B", "C", "D", "E", "F"};
+				
+				int randNum = (int) Math.floor(Math.random()*(4 - 0 + 1) + 0);
+				
+				System.out.println();
+				System.out.print("Introduce " + (randNum + 1) + letras[randLetra] + ": ");
+				
+				break;
+			}
+			else {
+				//Leo la siguiente linea(es la tarjeta de claves del usuario que no he introducido) para que al volver arriba en el bucle lea correctamente el proximo usuario
+				br.readLine();
+			}
+			x++;
+		}
+		
+	}
+	public static String[][] convierteTarjeta (String[] tarjeta){
+		int z = 0;
+		String[][] Tarjeta = new String [5][5];
+		
+		for(int x = 0; x < 5; x++) {
+			for(int y = 0; y < 5; y++) {
+				Tarjeta[x][y] = tarjeta[z];
+				z++;
+			}
+		}
+		return Tarjeta;
+	}
+	
+	public static void mostrarTarjeta (String[][] Tarjeta) {
+		int z = 0;
+		
+		System.out.println("    A    B    C    D    E");
+		for(int x = 0; x < 5; x++) {
+			System.out.print(x + 1);
+			for(int y = 0; y < 5; y++) {
+				System.out.print("  " + Tarjeta[x][y]);
+				z++;
+			}
+			System.out.println();
+		}
+	}
+
+}
